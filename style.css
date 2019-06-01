@@ -31,7 +31,7 @@ body {
     color: #FFC30C;
 }
 
-.header__nav{
+.header__nav {
     height: 32px;
     display: flex;
     justify-content: space-between;
@@ -48,11 +48,13 @@ body {
     background: #c7d3d8;
     margin-right: -4px;
     margin-top: -3px;
+    border-radius: 5px 0px 0px 5px;
 }
 
 .header__input--search {
     height: 40px;
     width: 250px;
+    border-radius: 0px 5px 5px 0px;
 }
 
 /***********Side Nav***********/
@@ -129,8 +131,15 @@ input[type="button"]:disabled {
     border: none;
 }
 
-/***********Side Nav***********/
+/***********Main Section***********/
+
 .main {
+  margin: 0px;
   background-color: #F3F6F7;
   height: 100vh;
+}
+
+h2 {
+    margin: 0px;
+    padding: 0px;
 }
