@@ -81,11 +81,10 @@ body {
 
 .side__input {
     height: 40px;
-    width: 320px;
-    min-width: 80%;
+    width: 300px;
+    min-width: 60%;
     display: block;
     margin: 20px 10px 10px 25px;
-    
     padding: 0px;
 }
 
@@ -98,21 +97,39 @@ body {
 .side__input--save,
 .side__input--clear,
 .side__input--filter {
-    border-radius: 5px;
+    font-weight: 700;
     color: #FFFFFF;
     background-color: #1F1F3D;
     border: 2px solid #1F1F3D;
 }
 
+.side__input--task {
+    width: 270px;
+    display: inline-block;
+    margin-right: 0px;
+}
+
+.side__input--task-icon {
+    vertical-align: middle;
+    height: 30px;
+    padding: 7px;
+    background: #1F1F3D;;
+    margin-left: -20px;
+    margin-top: -4px;
+}
+
 .side__input--filter {
     text-align: center;
-    margin: 10 auto;
 }
 
 input[type="button"]:disabled {
-    background: #58788A;
-  }
+    background-color: #F3F6F7;
+    color: #1F1F3D;
+    border: none;
+}
+
 /***********Side Nav***********/
-.main{
-   
+.main {
+  background-color: #F3F6F7;
+  height: 100vh;
 }
