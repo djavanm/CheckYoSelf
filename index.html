@@ -21,6 +21,7 @@
         </section>
     </nav>
   </header>
+  <div class='contain-shit'>
   <nav class="side__nav">
       <form class="side__form" id="top__form">
           <label class="side__label" for="side__input--title">Task Title</label>
@@ -39,18 +40,23 @@
           <h2 class="main__article--title">Task Title</h1>
       </header>
       <section class="main__article--body">
-        <ul class="main_article--task-list">
-          <li class="main__article--task"></li>
-          <li class="main__article--task"></li>
-          <li class="main__article--task"></li>
+        <ul class="main__article--task-list">
+          <li class="main__article--task">Don't ever play yourself.</li>
+          <li class="main__article--task">Every change I get, I water the plants.</li>
+          <li class="main__article--task">Lion! Cloth talk.</li>
         </ul>
-        <footer class="main__article--footer">
-          <img class="main__article--urgency-icon" src="images/urgent.svg" alt="lightning icon to denote urgency">
-          <img class="main__article--delete-icon" src="images/delete.svg" alt="delete button">
-        </footer>
       </section> 
+        <footer class="main__article--footer">
+          <label class="main__urgency-label" for="main__article--urgency-icon">
+            <img class="main__article--urgency-icon" id="main__article--urgency-icon" src="images/urgent.svg" alt="lightning icon to denote urgency">
+          URGENT</label>
+          <label class="main__delete-label" for="main__article--delete-icon">
+            <img class="main__article--delete-icon" id="main__article--delete-icon"src="images/delete.svg" alt="delete button">
+          DELETE</label>
+        </footer> 
     </article>
   </main>
+  </div>
 </body>
 <script src="todo-list.js"></script>
 <script src="main.js"></script>
