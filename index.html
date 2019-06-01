@@ -34,11 +34,21 @@
       <input class="side__input side__input--filter" type="button" value="Filter By Urgency">
   </nav>
   <main class="main">
-    <article class="main__task--card" data-id="">
+    <article class="main__article--card" data-id="">
       <header>
-          <h2 class="main__task--title">Task Title</h1>
-
+          <h2 class="main__article--title">Task Title</h1>
       </header>
+      <section class="main__article--body">
+        <ul class="main_article--task-list">
+          <li class="main__article--task"></li>
+          <li class="main__article--task"></li>
+          <li class="main__article--task"></li>
+        </ul>
+        <footer class="main__article--footer">
+          <img class="main__article--urgency-icon" src="images/urgent.svg" alt="lightning icon to denote urgency">
+          <img class="main__article--delete-icon" src="images/delete.svg" alt="delete button">
+        </footer>
+      </section> 
     </article>
   </main>
 </body>
