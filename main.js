@@ -10,7 +10,7 @@ var headerContainer = document.querySelector(".header");
 //******************   Event listeners
 saveBtn.addEventListener("click", addCards);
 addTaskBtn.addEventListener("click", appendNewTask);
-// saveBtn.addEventListener("click", instantiateIdea);
+navContainer.addEventListener("click", removeNewTask);
 // searchInput.addEventListener("keyup", searchIdeas);
 // bottomContainer.addEventListener("click", deleteCard);
 // bottomContainer.addEventListener("click", starCard);
@@ -36,9 +36,16 @@ var globalArray = JSON.parse(localStorage.getItem("TaskListArr")) || [];
 
 function appendNewTask(e) {
     if(e.target === addTaskBtn && taskInput.value !== "") {
-    var ul = document.querySelector('.side__ul--new--task');
+    var ul = document.querySelector('.side__ul--new-task');
     var newTask = taskInput.value;
     ul.insertAdjacentHTML('afterbegin', `<li class="side__li--task">${newTask}</li>`)
+    taskInput.value = "";
+    }
+};
+
+function removeNewTask(e) {
+if(e.target.classList.contains('side__li--task')) {
+    e.target.closest("li").remove();
     }
 };
 
