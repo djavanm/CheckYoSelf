@@ -133,7 +133,7 @@ input[type="button"]:disabled {
 
 .bottom__container {
   display: flex;
-  height: 100vh;
+  min-height: 100vh;
 }
 
 .main {
@@ -200,6 +200,7 @@ display: flex;
 flex-direction: column;
 margin: 5px;
 }
+
 .main__article--urgency-icon {
     vertical-align: middle;
     height: 32px;
