@@ -66,10 +66,8 @@ body {
 
 .side__nav {
     background-color: #58788A;
-    float: left;
     display: flex;
     flex-direction: column;
-    height: 100vh;
     width: 20%;
     min-width: 350px;
 }
@@ -133,24 +131,31 @@ input[type="button"]:disabled {
 
 /***********Main Section***********/
 
-.contain-shit {
+.bottom__container {
   display: flex;
+  height: 100vh;
 }
 
 .main {
   margin: 0px;
   background-color: #F3F6F7;
-  height: 100vh;
+  height: auto;
   width: 100vw;
+  padding: 30px;
+  columns: 2 250px;
+  column-gap: 30px;
 }
 
 .main__article--card {
-    margin: 10px;
     border: 2px solid black;
-    width: 30%;
+    width: 100%;
     background-color: #FAFDFF;
     color: #1F1F3D;
     border: 2px solid #C7D3D8;
+    padding: 10px 0px 0px 0px;
+    min-height: 250px;
+    margin-bottom: 30px;
+    break-inside: avoid;
 }
 
 .main__article--title {
