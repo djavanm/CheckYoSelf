@@ -11,15 +11,9 @@ var headerContainer = document.querySelector(".header");
 saveBtn.addEventListener("click", makeTaskList);
 addTaskBtn.addEventListener("click", appendNewTask);
 navContainer.addEventListener("click", removeNewTask);
+titleInput.addEventListener("keyup", buttonHandler);
+taskInput.addEventListener("keyup", buttonHandler);
 clearBtn.addEventListener("click", clearNavInputs);
-// searchInput.addEventListener("keyup", searchIdeas);
-// bottomContainer.addEventListener("click", deleteCard);
-// bottomContainer.addEventListener("click", starCard);
-// bottomContainer.addEventListener("click", upvoteQuality);
-// bottomContainer.addEventListener("click", downvoteQuality);
-// bottomContainer.addEventListener("focusout", setText);
-// bottomContainer.addEventListener("keyup", returnHandler);
-// asideList.addEventListener("click", filterQualityHandler);
 // asideStarBtn.addEventListener("click", toggleStarList);
 // recentIdeasBtn.addEventListener("click", toggleIdeaList);
 this.addEventListener("load", reinstantiateToDo);
@@ -35,6 +29,7 @@ function appendNewTask(e) {
     var newTask = taskInput.value;
     ul.insertAdjacentHTML('beforeend', `<li class="side__li--task">${newTask}</li>`)
     taskInput.value = "";
+    reset(saveBtn);
     }
 };
 
@@ -61,6 +56,8 @@ function newToDoHandler(toDoList) {
   toDoList.saveToStorage(globalArray);
   generateCard(toDoList);
   resetForm();
+  reset(saveBtn);
+  reset(clearBtn);
 };
 
 function createTaskItems() {
@@ -141,4 +138,19 @@ function clearWelcomeMessage() {
 
 function clearNavInputs() {
   resetForm();
+  reset(clearBtn);
+};
+
+function buttonHandler(e) {
+  var validateArray = createTaskItems();
+    if(titleInput.value != "" || taskInput.value != ""){
+    clearBtn.disabled = false;
+  }
+    if(titleInput.value != "" &&  validateArray.length > 0) {
+    saveBtn.disabled = false;
+  }
+};
+
+function reset(btn) {
+  btn.disabled = !btn.disabled;
 };
