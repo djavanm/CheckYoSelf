@@ -184,9 +184,12 @@ input[type="button"]:disabled {
     color: #1F1F3D;
     border: 2px solid #C7D3D8;
     padding: 10px 0px 0px 0px;
-    min-height: 250px;
+    min-height: 200px;
     margin-bottom: 30px;
     break-inside: avoid;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
 }
 
 .main__article--title {
@@ -196,9 +199,9 @@ input[type="button"]:disabled {
 }
 
 .main__article--body {
-  border-bottom: 2px solid #C7D3D8;
   padding: 5px;
   padding-bottom: 20px;
+
 }
 
 .main__article--task-list {
@@ -253,6 +256,7 @@ margin: 5px;
 .main__article--footer {
   display: flex;
   justify-content: space-between;
+  border-top: 2px solid #C7D3D8;
 }
 
 .main__article--card-urgent {
