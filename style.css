@@ -181,7 +181,6 @@ input[type="button"]:disabled {
 }
 
 .main__article--card {
-    border: 2px solid black;
     width: 100%;
     background-color: #FAFDFF;
     color: #1F1F3D;
@@ -263,12 +262,17 @@ margin: 5px;
 }
 
 .main__article--card-urgent {
-  margin-left: 10px;
-  border: 2px solid black;
-  width: 30%;
-  background-color: #FFE89D;
-  color: #1F1F3D;
-  border: 2px solid #FFC30C;
+    width: 100%;
+    background-color: #FEE89D;
+    color: #1F1F3D;
+    border: 2px solid #FCC30C;
+    padding: 10px 0px 0px 0px;
+    min-height: 200px;
+    margin-bottom: 30px;
+    break-inside: avoid;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
 }
 
 .main__article--task-complete:before {

@@ -81,10 +81,11 @@ function resetForm() {
 };
 
 function generateCard(toDoList) {
+  var classSrc = toDoList.urgent ? "main__article--card-urgent" : "main__article--card";
   var urgentSrc = toDoList.urgent ? "images/urgent-active.svg" : "images/urgent.svg";
   var deleteSrc = deleteIcon(toDoList) ? "images/delete-active.svg" : "images/delete.svg";
   var listItems = generateToDoList(toDoList);
-  mainContainer.insertAdjacentHTML('afterbegin', `<article class="main__article--card" data-id="${toDoList.id}">
+  mainContainer.insertAdjacentHTML('afterbegin', `<article class="${classSrc}" data-id="${toDoList.id}">
   <header>
       <h2 class="main__article--title">${toDoList.title}</h1>
   </header>
@@ -247,16 +248,19 @@ function toggleUrgent(e) {
   if(e.target.classList.contains('main__article--urgency-icon')) {
      var index = locateIndex(e)
      var urgentIcon = e.target;
+     var card = e.target.closest('article');
      globalArray[index].urgent = !globalArray[index].urgent;
      globalArray[index].saveToStorage(globalArray);
-     updateUrgentCard(index, urgentIcon);
+     updateUrgentCard(index, urgentIcon, card);
   }
 };
 
-function updateUrgentCard(index, urgentIcon) {
+function updateUrgentCard(index, urgentIcon, card) {
   if (globalArray[index].urgent === true) {
+    card.setAttribute("class", "main__article--card-urgent")
     urgentIcon.setAttribute("src", "images/urgent-active.svg");
   } else if (globalArray[index].urgent === false) {
+    card.setAttribute("class", "main__article--card")
     urgentIcon.setAttribute("src", "images/urgent.svg");
   }
 };
