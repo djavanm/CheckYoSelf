@@ -15,7 +15,7 @@ titleInput.addEventListener("keyup", buttonHandler);
 taskInput.addEventListener("keyup", buttonHandler);
 clearBtn.addEventListener("click", clearNavInputs);
 mainContainer.addEventListener("click", checkTask);
-// recentIdeasBtn.addEventListener("click", toggleIdeaList);
+mainContainer.addEventListener("click", deleteCard);
 this.addEventListener("load", reinstantiateToDo);
 
 //*************************Global var
@@ -29,13 +29,13 @@ function appendNewTask(e) {
     var newTask = taskInput.value;
     ul.insertAdjacentHTML('beforeend', `<li class="side__li--task">${newTask}</li>`)
     taskInput.value = "";
-    saveBtn.disabled = false;
     }
 };
 
 function removeNewTask(e) {
 if(e.target.classList.contains('side__li--task')) {
     e.target.closest("li").remove();
+    reset(saveBtn);
     }
 };
 
@@ -216,10 +216,21 @@ return taskArray.every(isTrue)
 
 function enableDelete(value, e) {
   deleteImg = e.target.closest('article').querySelector('.main__article--delete-icon');
-  console.log(deleteImg)
   if (value === true) {
     deleteImg.setAttribute("src", "images/delete-active.svg");
   } else if (value === false) {
     deleteImg.setAttribute("src", "images/delete.svg");
+  }
+};
+
+function deleteCard(e) {
+  if(e.target.classList.contains('main__article--delete-icon')) {
+    var index = locateIndex(e);
+    var tasksComplete = checkDelete(index);
+    var id = locateId(e);
+    if (tasksComplete === true) {
+      e.target.closest("article").remove();
+      globalArray[index].deleteFromStorage(globalArray, id);
+    }
   }
 };
