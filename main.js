@@ -23,22 +23,16 @@ navContainer.addEventListener("click", removeNewTask);
 // recentIdeasBtn.addEventListener("click", toggleIdeaList);
 // this.addEventListener("load", reinstantiateIdeas);
 
-//************************* */Global var
+//*************************Global var
 var globalArray = JSON.parse(localStorage.getItem("TaskListArr")) || [];
 
-// function appendList() {
-//     var ul = document.getElementById('listitems');
-//     var li = document.createElement('li');
-//     var item = document.getElementById('item');
-//     li.appendChild(document.createTextNode(item.value));
-//     ul.appendChild(li);
-// }
+
 
 function appendNewTask(e) {
     if(e.target === addTaskBtn && titleInput.value !== "" && taskInput.value !== "") {
     var ul = document.querySelector('.side__ul--new-task');
     var newTask = taskInput.value;
-    ul.insertAdjacentHTML('afterbegin', `<li class="side__li--task">${newTask}</li>`)
+    ul.insertAdjacentHTML('beforeend', `<li class="side__li--task">${newTask}</li>`)
     taskInput.value = "";
     }
 };
@@ -82,18 +76,14 @@ function resetForm() {
 };
 
 function generateCard(toDoList) {
+  var listItems = generateToDoList(toDoList);
   mainContainer.insertAdjacentHTML('afterbegin', `<article class="main__article--card" data-id="${toDoList.id}">
   <header>
       <h2 class="main__article--title">${toDoList.title}</h1>
   </header>
   <section class="main__article--body">
     <ul class="main__article--task-list">
-      <li class="main__article--task">Don't ever play yourself.</li>
-      <li class="main__article--task">Every change I get, I water the plants.</li>
-      <li class="main__article--task">Lion! Cloth talk.</li>
-      <li class="main__article--task">Lion! Cloth talk.</li>
-      <li class="main__article--task">Lion! Cloth talk.</li>
-      <li class="main__article--task">Lion! Cloth talk.</li>
+    ${listItems}
     </ul>
   </section> 
     <footer class="main__article--footer">
@@ -105,7 +95,20 @@ function generateCard(toDoList) {
       DELETE</label>
     </footer> 
 </article>`)
+generateToDoList(toDoList);
 }
+
+function generateToDoList(toDoList) {
+  var toDoText = "";
+  var toDoItems = toDoList.tasks.map(function(tasks){
+    return `<li class="main__article--task">${tasks.task}</li>`
+  })
+  for(var i = 0; i<toDoItems.length; i++) {
+    toDoText += toDoItems[i];
+  }
+  return toDoText;
+};
+
 
 // function addNewTaskObject() {
 //     var newTaskList = new ToDoList ({
