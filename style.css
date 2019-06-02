@@ -10,6 +10,9 @@ body {
     font-family: 'Open Sans', sans-serif;
 }
 
+li { 
+    cursor: pointer; 
+}
 /***********Header***********/
 
 .header {
@@ -267,3 +270,8 @@ margin: 5px;
   color: #1F1F3D;
   border: 2px solid #FFC30C;
 }
+
+.main__article--task-complete {
+    font-size: 1.3em;
+    color: red;
+};

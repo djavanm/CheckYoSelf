@@ -14,7 +14,7 @@ navContainer.addEventListener("click", removeNewTask);
 titleInput.addEventListener("keyup", buttonHandler);
 taskInput.addEventListener("keyup", buttonHandler);
 clearBtn.addEventListener("click", clearNavInputs);
-// asideStarBtn.addEventListener("click", toggleStarList);
+mainContainer.addEventListener("click", checkTask);
 // recentIdeasBtn.addEventListener("click", toggleIdeaList);
 this.addEventListener("load", reinstantiateToDo);
 
@@ -103,8 +103,12 @@ function generateCard(toDoList) {
 
 function generateToDoList(toDoList) {
   var toDoText = "";
-  var toDoItems = toDoList.tasks.map(function(tasks){
-    return `<li class="main__article--task">${tasks.task}</li>`
+  var toDoItems = toDoList.tasks.map(function(tasks, index){
+    if(tasks.complete === false) {
+      return `<li class="main__article--task" data-index=${index}>${tasks.task}</li>`
+    } else if (tasks.complete === true) {
+      return `<li class="main__article--task main__article--task-complete" data-index=${index}>${tasks.task}</li>`
+    }
   })
   for(var i = 0; i<toDoItems.length; i++) {
     toDoText += toDoItems[i];
@@ -154,3 +158,35 @@ function buttonHandler(e) {
 function reset(btn) {
   btn.disabled = !btn.disabled;
 };
+
+function locateId(e) {
+  var parent = e.target.closest("article");
+  var parentId = parseInt(parent.dataset.id);
+  return parentId;
+};
+
+function locateIndex(e) {
+  var parent = e.target.closest("article");
+  var parentId = parseInt(parent.dataset.id);
+  var locatedIndex = globalArray.findIndex(function(idea) {
+    return idea.id === parentId;
+  });
+  return locatedIndex;
+};
+
+function locateTaskIndex(e) {
+  if(e.target.classList.contains('main__article--task')) {
+    var li = e.target
+    var index = parseInt(li.dataset.index);
+  }
+  return index;
+};
+
+function checkTask(e) {
+  if(e.target.classList.contains('main__article--task')) {
+    var index = locateIndex(e);
+    var taskIndex = locateTaskIndex(e);
+    globalArray[index].updateTask(globalArray, taskIndex)
+  }
+};
+
