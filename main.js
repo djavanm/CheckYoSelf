@@ -56,7 +56,7 @@ function makeTaskList(e) {
 
 function newToDoHandler(toDoList) {
   globalArray.push(toDoList);
-  removeToDoDisplay();
+  clearWelcomeMessage();
   toDoList.saveToStorage(globalArray);
   generateCard(toDoList);
   resetForm();
@@ -116,7 +116,7 @@ function generateToDoList(toDoList) {
 
 function reinstantiateToDo() {
     if (globalArray.length !== 0) {
-      removeToDoDisplay();
+      clearWelcomeMessage();
       var newArray = globalArray.map(ToDo => {
         var newToDoList = new ToDoList ({ ...ToDo});
         return newToDoList;});
@@ -129,11 +129,11 @@ function pageReload() {
   globalArray.map(ToDoList => {
     generateCard(ToDoList);
   });
-  
 };
 
-function removeToDoDisplay() {
-if(globalArray.length !== 0) {
-    mainContainer.innerHTML = "";
+function clearWelcomeMessage() {
+  var welcomeMessage = document.querySelector('.main__article--welcome');
+  if (mainContainer.contains(welcomeMessage)) {
+    mainContainer.removeChild(welcomeMessage);
   }
 };
