@@ -26,16 +26,17 @@
       <form class="side__form" id="top__form">
           <label class="side__label" for="side__input--title">Task Title</label>
           <input class="side__input side__input--title" id="side__input--title">
+          <ul class="side__ul--new-task"></ul>
           <label class="side__label" for="side__input--task">Task Item</label>
           <input class="side__input side__input--task" id="side__input--task">
           <img class="side__input--task-icon" src="images/plus.svg" alt="add a task after clicking this icon">
-          <input class="side__input side__input--save" id="side__input--save" type="button" value="Make Task List" disabled="true">
-          <input class="side__input side__input--clear" type="button" value="Clear All">
+          <input class="side__input side__input--save" id="side__input--save" type="button" value="Make Task List">
+          <input class="side__input side__input--clear" id="side__input--clear" type="button" value="Clear All">
       </form>
       <input class="side__input side__input--filter" type="button" value="Filter By Urgency">
   </nav>
   <main class="main">
-    <article class="main__article--card" data-id="">
+    <!-- <article class="main__article--card" data-id="">
       <header>
           <h2 class="main__article--title">Task Title</h1>
       </header>
@@ -57,7 +58,7 @@
             <img class="main__article--delete-icon" id="main__article--delete-icon"src="images/delete.svg" alt="delete button">
           DELETE</label>
         </footer> 
-    </article>
+    </article> -->
   </main>
 </section>
 </body>
