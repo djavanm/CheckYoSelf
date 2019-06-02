@@ -11,6 +11,7 @@ var headerContainer = document.querySelector(".header");
 saveBtn.addEventListener("click", makeTaskList);
 addTaskBtn.addEventListener("click", appendNewTask);
 navContainer.addEventListener("click", removeNewTask);
+clearBtn.addEventListener("click", clearNavInputs);
 // searchInput.addEventListener("keyup", searchIdeas);
 // bottomContainer.addEventListener("click", deleteCard);
 // bottomContainer.addEventListener("click", starCard);
@@ -136,4 +137,8 @@ function clearWelcomeMessage() {
   if (mainContainer.contains(welcomeMessage)) {
     mainContainer.removeChild(welcomeMessage);
   }
+};
+
+function clearNavInputs() {
+  resetForm();
 };
