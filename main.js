@@ -52,14 +52,15 @@ function makeTaskList(e) {
     tasks: taskItems
   });
   newToDoHandler(toDoList) 
-}
+};
 
 function newToDoHandler(toDoList) {
   globalArray.push(toDoList);
+  removeToDoDisplay();
   toDoList.saveToStorage(globalArray);
   generateCard(toDoList);
   resetForm();
-}
+};
 
 function createTaskItems() {
   newTasks = document.querySelectorAll('.side__li--task');
@@ -100,7 +101,7 @@ function generateCard(toDoList) {
       DELETE</label>
     </footer> 
 </article>`)
-}
+};
 
 function generateToDoList(toDoList) {
   var toDoText = "";
@@ -115,10 +116,10 @@ function generateToDoList(toDoList) {
 
 function reinstantiateToDo() {
     if (globalArray.length !== 0) {
+      removeToDoDisplay();
       var newArray = globalArray.map(ToDo => {
         var newToDoList = new ToDoList ({ ...ToDo});
-        return newToDoList;
-      });
+        return newToDoList;});
       globalArray = newArray;
       pageReload();
     }
@@ -128,35 +129,11 @@ function pageReload() {
   globalArray.map(ToDoList => {
     generateCard(ToDoList);
   });
+  
 };
 
-// function addCards(e) {
-// if(e.target === saveBtn) {
-//     mainContainer.insertAdjacentHTML('afterbegin', `<article class="main__article--card" data-id="">
-//     <header>
-//         <h2 class="main__article--title">Task Title</h1>
-//     </header>
-//     <section class="main__article--body">
-//       <ul class="main__article--task-list">
-//         <li class="main__article--task">Don't ever play yourself.</li>
-//         <li class="main__article--task">Every change I get, I water the plants.</li>
-//         <li class="main__article--task">Lion! Cloth talk.</li>
-//         <li class="main__article--task">Lion! Cloth talk.</li>
-//         <li class="main__article--task">Lion! Cloth talk.</li>
-//         <li class="main__article--task">Lion! Cloth talk.</li>
-//         <li class="main__article--task">Lion! Cloth talk.</li>
-//         <li class="main__article--task">Lion! Cloth talk.</li>
-//         <li class="main__article--task">Lion! Cloth talk.</li>
-//       </ul>
-//     </section> 
-//       <footer class="main__article--footer">
-//         <label class="main__urgency-label" for="main__article--urgency-icon">
-//           <img class="main__article--urgency-icon" id="main__article--urgency-icon" src="images/urgent.svg" alt="lightning icon to denote urgency">
-//         URGENT</label>
-//         <label class="main__delete-label" for="main__article--delete-icon">
-//           <img class="main__article--delete-icon" id="main__article--delete-icon"src="images/delete.svg" alt="delete button">
-//         DELETE</label>
-//       </footer> 
-//   </article>`)
-// }
-// }
+function removeToDoDisplay() {
+if(globalArray.length !== 0) {
+    mainContainer.innerHTML = "";
+  }
+};
