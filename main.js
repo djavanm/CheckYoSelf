@@ -8,7 +8,7 @@ var mainContainer = document.querySelector(".main");
 var navContainer = document.querySelector(".side__nav");
 var headerContainer = document.querySelector(".header");
 //******************   Event listeners
-saveBtn.addEventListener("click", addCards);
+saveBtn.addEventListener("click", makeTaskList);
 addTaskBtn.addEventListener("click", appendNewTask);
 navContainer.addEventListener("click", removeNewTask);
 // searchInput.addEventListener("keyup", searchIdeas);
@@ -35,7 +35,7 @@ var globalArray = JSON.parse(localStorage.getItem("TaskListArr")) || [];
 // }
 
 function appendNewTask(e) {
-    if(e.target === addTaskBtn && taskInput.value !== "") {
+    if(e.target === addTaskBtn && titleInput.value !== "" && taskInput.value !== "") {
     var ul = document.querySelector('.side__ul--new-task');
     var newTask = taskInput.value;
     ul.insertAdjacentHTML('afterbegin', `<li class="side__li--task">${newTask}</li>`)
@@ -48,6 +48,64 @@ if(e.target.classList.contains('side__li--task')) {
     e.target.closest("li").remove();
     }
 };
+
+function makeTaskList(e) {
+  var taskItems = createTaskItems();
+  var toDoList = new ToDoList ({
+    id: Date.now(),
+    title: titleInput.value,
+    urgent: false,
+    tasks: taskItems
+  });
+  globalArray.push(toDoList);
+  generateCard(toDoList);
+  resetForm();
+}
+
+function createTaskItems() {
+  newTasks = document.querySelectorAll('.side__li--task');
+  newTasks = Array.from(newTasks);
+  newTasks = newTasks.map(function(task) {
+    return task.innerText
+  });
+  taskObjects = newTasks.map(function(task){
+    return {complete: false, task: `${task}`};
+  });
+  return taskObjects;
+};
+
+function resetForm() {
+  var sideForm = document.querySelector('.side__form');
+  ul = document.querySelector('.side__ul--new-task');
+  sideForm.reset();
+  ul.innerHTML = "";
+};
+
+function generateCard(toDoList) {
+  mainContainer.insertAdjacentHTML('afterbegin', `<article class="main__article--card" data-id="${toDoList.id}">
+  <header>
+      <h2 class="main__article--title">${toDoList.title}</h1>
+  </header>
+  <section class="main__article--body">
+    <ul class="main__article--task-list">
+      <li class="main__article--task">Don't ever play yourself.</li>
+      <li class="main__article--task">Every change I get, I water the plants.</li>
+      <li class="main__article--task">Lion! Cloth talk.</li>
+      <li class="main__article--task">Lion! Cloth talk.</li>
+      <li class="main__article--task">Lion! Cloth talk.</li>
+      <li class="main__article--task">Lion! Cloth talk.</li>
+    </ul>
+  </section> 
+    <footer class="main__article--footer">
+      <label class="main__urgency-label" for="main__article--urgency-icon">
+        <img class="main__article--urgency-icon" id="main__article--urgency-icon" src="images/urgent.svg" alt="lightning icon to denote urgency">
+      URGENT</label>
+      <label class="main__delete-label" for="main__article--delete-icon">
+        <img class="main__article--delete-icon" id="main__article--delete-icon"src="images/delete.svg" alt="delete button">
+      DELETE</label>
+    </footer> 
+</article>`)
+}
 
 // function addNewTaskObject() {
 //     var newTaskList = new ToDoList ({
