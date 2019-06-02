@@ -191,6 +191,9 @@ function checkTask(e) {
     var taskIndex = locateTaskIndex(e);
     globalArray[index].updateTask(globalArray, taskIndex);
     updateLiStyle(index, taskIndex, taskLi);
+    value = checkDelete(index);
+    enableDelete(value, e)
+    // console.log(value, taskLi.closest('article'));
   }
 };
 
@@ -200,4 +203,23 @@ function updateLiStyle(index, taskIndex, taskLi) {
   } else if (globalArray[index].tasks[taskIndex].complete === true) {
     taskLi.setAttribute("class", "main__article--task-complete");
   }
-}
+};
+
+function isTrue(task) {
+  return task.complete === true
+};
+
+function checkDelete(index) {
+taskArray = globalArray[index].tasks;
+return taskArray.every(isTrue)
+};
+
+function enableDelete(value, e) {
+  deleteImg = e.target.closest('article').querySelector('.main__article--delete-icon');
+  console.log(deleteImg)
+  if (value === true) {
+    deleteImg.setAttribute("src", "images/delete-active.svg");
+  } else if (value === false) {
+    deleteImg.setAttribute("src", "images/delete.svg");
+  }
+};
