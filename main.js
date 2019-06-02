@@ -249,17 +249,23 @@ function toggleUrgent(e) {
      var index = locateIndex(e)
      var urgentIcon = e.target;
      var card = e.target.closest('article');
+     var cardTitle = e.target.closest('article').querySelector('h2');
+     var cardFooter = e.target.closest('footer');
      globalArray[index].urgent = !globalArray[index].urgent;
      globalArray[index].saveToStorage(globalArray);
-     updateUrgentCard(index, urgentIcon, card);
+     updateUrgentCard(index, urgentIcon, card, cardTitle, cardFooter);
   }
 };
 
-function updateUrgentCard(index, urgentIcon, card) {
+function updateUrgentCard(index, urgentIcon, card, cardTitle, cardFooter) {
   if (globalArray[index].urgent === true) {
+    cardTitle.setAttribute("class", "main__article--title-urgent")
+    cardFooter.setAttribute("class", "main__article--footer-urgent")
     card.setAttribute("class", "main__article--card-urgent")
     urgentIcon.setAttribute("src", "images/urgent-active.svg");
   } else if (globalArray[index].urgent === false) {
+    cardTitle.setAttribute("class", "main__article--title")
+    cardFooter.setAttribute("class", "main__article--footer")
     card.setAttribute("class", "main__article--card")
     urgentIcon.setAttribute("src", "images/urgent.svg");
   }
