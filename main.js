@@ -16,6 +16,7 @@ taskInput.addEventListener("keyup", buttonHandler);
 clearBtn.addEventListener("click", clearNavInputs);
 mainContainer.addEventListener("click", checkTask);
 mainContainer.addEventListener("click", deleteCard);
+mainContainer.addEventListener("click", toggleUrgent);
 this.addEventListener("load", reinstantiateToDo);
 
 //*************************Global var
@@ -80,6 +81,8 @@ function resetForm() {
 };
 
 function generateCard(toDoList) {
+  var urgentSrc = toDoList.urgent ? "images/urgent-active.svg" : "images/urgent.svg";
+  var deleteSrc = deleteIcon(toDoList) ? "images/delete-active.svg" : "images/delete.svg";
   var listItems = generateToDoList(toDoList);
   mainContainer.insertAdjacentHTML('afterbegin', `<article class="main__article--card" data-id="${toDoList.id}">
   <header>
@@ -92,10 +95,10 @@ function generateCard(toDoList) {
   </section> 
     <footer class="main__article--footer">
       <label class="main__urgency-label" for="main__article--urgency-icon">
-        <img class="main__article--urgency-icon" id="main__article--urgency-icon" src="images/urgent.svg" alt="lightning icon to denote urgency">
+        <img class="main__article--urgency-icon" id="main__article--urgency-icon" src="${urgentSrc}" alt="lightning icon to denote urgency">
       URGENT</label>
       <label class="main__delete-label" for="main__article--delete-icon">
-        <img class="main__article--delete-icon" id="main__article--delete-icon"src="images/delete.svg" alt="delete button">
+        <img class="main__article--delete-icon" id="main__article--delete-icon"src="${deleteSrc}" alt="delete button">
       DELETE</label>
     </footer> 
 </article>`)
@@ -214,6 +217,11 @@ taskArray = globalArray[index].tasks;
 return taskArray.every(isTrue)
 };
 
+function deleteIcon(toDoList){
+  taskArray = toDoList.tasks;
+  return  taskArray.every(isTrue)
+};
+
 function enableDelete(value, e) {
   deleteImg = e.target.closest('article').querySelector('.main__article--delete-icon');
   if (value === true) {
@@ -232,5 +240,23 @@ function deleteCard(e) {
       e.target.closest("article").remove();
       globalArray[index].deleteFromStorage(globalArray, id);
     }
+  }
+};
+
+function toggleUrgent(e) {
+  if(e.target.classList.contains('main__article--urgency-icon')) {
+     var index = locateIndex(e)
+     var urgentIcon = e.target;
+     globalArray[index].urgent = !globalArray[index].urgent;
+     globalArray[index].saveToStorage(globalArray);
+     updateUrgentCard(index, urgentIcon);
+  }
+};
+
+function updateUrgentCard(index, urgentIcon) {
+  if (globalArray[index].urgent === true) {
+    urgentIcon.setAttribute("src", "images/urgent-active.svg");
+  } else if (globalArray[index].urgent === false) {
+    urgentIcon.setAttribute("src", "images/urgent.svg");
   }
 };
