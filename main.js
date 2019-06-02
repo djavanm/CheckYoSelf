@@ -31,6 +31,7 @@ function appendNewTask(e) {
     ul.insertAdjacentHTML('beforeend', `<li class="side__li--task">${newTask}</li>`)
     taskInput.value = "";
     }
+    saveBtn.disabled = false;
 };
 
 function removeNewTask(e) {
@@ -197,7 +198,6 @@ function checkTask(e) {
     updateLiStyle(index, taskIndex, taskLi);
     value = checkDelete(index);
     enableDelete(value, e)
-    // console.log(value, taskLi.closest('article'));
   }
 };
 
