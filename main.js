@@ -29,7 +29,7 @@ function appendNewTask(e) {
     var newTask = taskInput.value;
     ul.insertAdjacentHTML('beforeend', `<li class="side__li--task">${newTask}</li>`)
     taskInput.value = "";
-    reset(saveBtn);
+    saveBtn.disabled = false;
     }
 };
 
@@ -107,7 +107,7 @@ function generateToDoList(toDoList) {
     if(tasks.complete === false) {
       return `<li class="main__article--task" data-index=${index}>${tasks.task}</li>`
     } else if (tasks.complete === true) {
-      return `<li class="main__article--task main__article--task-complete" data-index=${index}>${tasks.task}</li>`
+      return `<li class="main__article--task-complete" data-index=${index}>${tasks.task}</li>`
     }
   })
   for(var i = 0; i<toDoItems.length; i++) {
@@ -175,7 +175,8 @@ function locateIndex(e) {
 };
 
 function locateTaskIndex(e) {
-  if(e.target.classList.contains('main__article--task')) {
+  if(e.target.classList.contains('main__article--task') ||
+     e.target.classList.contains('main__article--task-complete')) {
     var li = e.target
     var index = parseInt(li.dataset.index);
   }
@@ -183,10 +184,20 @@ function locateTaskIndex(e) {
 };
 
 function checkTask(e) {
-  if(e.target.classList.contains('main__article--task')) {
+  if(e.target.classList.contains('main__article--task') ||
+     e.target.classList.contains('main__article--task-complete')) {
+    var taskLi = e.target;
     var index = locateIndex(e);
     var taskIndex = locateTaskIndex(e);
-    globalArray[index].updateTask(globalArray, taskIndex)
+    globalArray[index].updateTask(globalArray, taskIndex);
+    updateLiStyle(index, taskIndex, taskLi);
   }
 };
 
+function updateLiStyle(index, taskIndex, taskLi) {
+  if (globalArray[index].tasks[taskIndex].complete === false) {
+    taskLi.setAttribute("class", "main__article--task");
+  } else if (globalArray[index].tasks[taskIndex].complete === true) {
+    taskLi.setAttribute("class", "main__article--task-complete");
+  }
+}
