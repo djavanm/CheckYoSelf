@@ -21,10 +21,10 @@ navContainer.addEventListener("click", removeNewTask);
 // asideList.addEventListener("click", filterQualityHandler);
 // asideStarBtn.addEventListener("click", toggleStarList);
 // recentIdeasBtn.addEventListener("click", toggleIdeaList);
-// this.addEventListener("load", reinstantiateIdeas);
+this.addEventListener("load", reinstantiateToDo);
 
 //*************************Global var
-var globalArray = JSON.parse(localStorage.getItem("TaskListArr")) || [];
+var globalArray = JSON.parse(localStorage.getItem("ToDoArray")) || [];
 
 
 
@@ -56,6 +56,7 @@ function makeTaskList(e) {
 
 function newToDoHandler(toDoList) {
   globalArray.push(toDoList);
+  toDoList.saveToStorage(globalArray);
   generateCard(toDoList);
   resetForm();
 }
@@ -110,6 +111,23 @@ function generateToDoList(toDoList) {
     toDoText += toDoItems[i];
   }
   return toDoText;
+};
+
+function reinstantiateToDo() {
+    if (globalArray.length !== 0) {
+      var newArray = globalArray.map(ToDo => {
+        var newToDoList = new ToDoList ({ ...ToDo});
+        return newToDoList;
+      });
+      globalArray = newArray;
+      pageReload();
+    }
+};
+
+function pageReload() {
+  globalArray.map(ToDoList => {
+    generateCard(ToDoList);
+  });
 };
 
 // function addCards(e) {
