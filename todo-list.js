@@ -24,7 +24,8 @@ class ToDoList {
   
   }
 
-  updateTask(object) {
-    object = object;
+  updateTask(globalArray, taskIndex) {
+    this.tasks[taskIndex].complete = !this.tasks[taskIndex].complete;
+    this.saveToStorage(globalArray);
   }
 }
