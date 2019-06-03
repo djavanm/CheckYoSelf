@@ -10,9 +10,10 @@ body {
     font-family: 'Open Sans', sans-serif;
 }
 
-li { 
-    cursor: pointer; 
+p {
+    display: inline-block;
 }
+
 /***********Header***********/
 
 .header {
@@ -108,6 +109,21 @@ li {
     border: 2px solid #1F1F3D;
 }
 
+.side__img--delete {
+    height: 20px;
+    padding-right: 10px;
+    display: inline-block;
+    margin-left: -5px;
+    border-radius: 0px 5px 5px 0px;
+}
+
+.side__p--task {
+    font-size: 1.3em;
+    margin: 0px;
+    padding: 0px;
+    color: #F3F6F7;
+}
+
 .side__input--filter-urgent {
     font-weight: 700;
     color: #FFFFFF;
@@ -144,30 +160,14 @@ input[type="button"]:disabled {
 
 .side__ul--new-task {
     list-style: none;
-    padding: 0px 0px 5px 30px;
     margin: 0px;
     width: 80%;
-
 }
 
 .side__li--task {
     font-size: 1.3em;
-    padding-top: 5px;
     margin-top: 10px;
     color: #F3F6F7;
-}
-
-.side__li--task:before {
-  content: '';
-  display: inline-block;
-  height: 20px;
-  width: 20px;
-  margin-left: 2px;
-  margin-top: 2px;
-  background-size: 20px;
-  background-image: url(images/delete-list-item.svg);
-  background-repeat: no-repeat;
-  margin-right: 10px;
 }
 
 /***********Main Section***********/
@@ -217,25 +217,30 @@ input[type="button"]:disabled {
     list-style: none;
     padding: 0px;
     margin: 0px;
-
 }
 
-.main__article--task:before {
-  content: '';
-  display: inline-block;
-  height: 20px;
-  width: 20px;
-  margin-left: 2px;
-  margin-top: 2px;
-  background-size: 20px;
-  background-image: url(images/checkbox.svg);
-  background-repeat: no-repeat;
-  margin-right: 5px;
+.main__img--checkbox,
+.main__img--checkbox-complete,
+.main__img--checkbox-welcome {
+    height: 20px;
+    padding-right: 10px;
+    display: inline-block;
+    margin-left: 5px;
+    border-radius: 0px 5px 5px 0px;
 }
 
-.main__article--task {
+.main__article--p {
+    display: inline-block;
     font-size: 1.3em;
+    padding: 0px;
+    margin: 5px 0px 0px 0px;
 }
+
+.complete {
+    font-style: italic;
+    color: #3C6577;  
+}
+
 
 .main__urgency-label,
 .main__delete-label {
@@ -244,7 +249,8 @@ flex-direction: column;
 margin: 5px;
 }
 
-.main__article--urgency-icon {
+.main__article--urgency-icon,
+.main__article--urgency-icon-welcome {
     vertical-align: middle;
     height: 32px;
     padding: 7px;
@@ -253,7 +259,8 @@ margin: 5px;
     border-radius: 5px 0px 0px 5px;
 }
 
-.main__article--delete-icon {
+.main__article--delete-icon,
+.main__article--delete-icon-welcome {
   vertical-align: middle;
   height: 32px;
   padding: 7px;
@@ -271,6 +278,7 @@ margin: 5px;
   display: flex;
   justify-content: space-between;
   border-top: 2px solid #FCC30C;
+  color: #B23A35;
 }
 
 .main__article--card-urgent {
@@ -292,22 +300,3 @@ margin: 5px;
     justify-content: space-between;
     border-top: 2px solid #C7D3D8;
   }
-
-.main__article--task-complete:before {
-    content: '';
-    display: inline-block;
-    height: 20px;
-    width: 20px;
-    margin-left: 2px;
-    margin-top: 2px;
-    background-size: 20px;
-    background-image: url(images/checkbox-active.svg);
-    background-repeat: no-repeat;
-    margin-right: 5px;
-  }
-
-  .main__article--task-complete {
-    font-size: 1.3em;
-    font-style: italic;
-    color: #3C6577;  
-};
