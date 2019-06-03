@@ -21,6 +21,9 @@ mainContainer.addEventListener("click", deleteCard);
 mainContainer.addEventListener("click", toggleUrgent);
 searchInput.addEventListener("keyup", searchToDoList);
 urgencyBtn.addEventListener("click", urgencyHandler);
+mainContainer.addEventListener("focusout", setToDo);
+mainContainer.addEventListener("focusout", setTask);
+mainContainer.addEventListener("keydown", returnHandler)
 this.addEventListener("load", reinstantiateToDo);
 
 //*************************Global var
@@ -333,4 +336,45 @@ function filterToUrgent() {
   urgentArray.map(function(toDoList) {
     generateCard(toDoList);
   });
+};
+
+function setToDo(e) {
+  if (e.target.classList.contains("main__article--title")) {
+    var index = locateIndex(e);
+    var title = e.target.closest("article").querySelector(".main__article--title").textContent;
+    globalArray[index].title = title;
+    globalArray[index].saveToStorage(globalArray);
+  }
+};
+
+function returnHandler(e) {
+  if (e.keyCode == 13) {
+    e.preventDefault();
+    e.target.blur();
+  }
+};
+
+function setTask(e) {
+  if (e.target.classList.contains("main__article--p")) {
+    var index = locateIndex(e);
+    var title = e.target.closest("article").querySelector(".main__article--title").textContent;
+    globalArray[index].title = title;
+    var taskArray = e.target.closest("article").querySelectorAll('.main__article--p')
+    taskArray = Array.from(taskArray);
+    taskArray = taskArray.map(function(task) {
+      return task.innerText
+    });
+  }
+  insertNewTasks(index, taskArray)
+};
+
+function insertNewTasks(index, taskArray) {
+  if(taskArray !== undefined) {
+    for (var i = 0; i < taskArray.length; i++) {
+      if(globalArray[index].tasks[i].task !== taskArray[i]) {
+        globalArray[index].tasks[i].task = taskArray[i];
+      }
+    }
+    globalArray[index].saveToStorage(globalArray);
+  }
 };
