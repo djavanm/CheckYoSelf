@@ -7,7 +7,8 @@ var searchInput = document.querySelector("#nav__input--search");
 var mainContainer = document.querySelector(".main");
 var navContainer = document.querySelector(".side__nav");
 var headerContainer = document.querySelector(".header");
-var searchInput = document.querySelector(".header__input--search")
+var searchInput = document.querySelector(".header__input--search");
+var urgencyBtn = document.querySelector(".side__input--filter");
 //******************   Event listeners
 saveBtn.addEventListener("click", makeTaskList);
 addTaskBtn.addEventListener("click", appendNewTask);
@@ -19,6 +20,7 @@ mainContainer.addEventListener("click", checkTask);
 mainContainer.addEventListener("click", deleteCard);
 mainContainer.addEventListener("click", toggleUrgent);
 searchInput.addEventListener("keyup", searchToDoList);
+urgencyBtn.addEventListener("click", urgencyHandler);
 this.addEventListener("load", reinstantiateToDo);
 
 //*************************Global var
@@ -295,4 +297,24 @@ function domSearchToDo() {
   var searchArray = globalArray.filter(function(toDoList) {
       return toDoArray.includes(toDoList.id); });
   return searchArray;
+};
+
+function urgencyHandler() {
+  if(urgencyBtn.value === "Filter By Urgency") {
+    urgencyBtn.value = "View All To Do's";
+    filterToUrgent();
+  } else if(urgencyBtn.value === "View All To Do's") {
+    urgencyBtn.value = "Filter By Urgency";
+    pageReload();
+  }
+};
+
+function filterToUrgent() {
+  mainContainer.innerHTML = "";
+  urgentArray = globalArray.filter(function(toDoList) {
+    return toDoList.urgent === true;
+  });
+  urgentArray.map(function(toDoList) {
+    generateCard(toDoList);
+  });
 };
