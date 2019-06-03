@@ -32,14 +32,14 @@ function appendNewTask(e) {
     if(e.target === addTaskBtn && titleInput.value !== "" && taskInput.value !== "") {
     var ul = document.querySelector('.side__ul--new-task');
     var newTask = taskInput.value;
-    ul.insertAdjacentHTML('beforeend', `<li class="side__li--task">${newTask}</li>`)
+    ul.insertAdjacentHTML('beforeend', `<li class="side__li--task"><img class="side__img--delete" alt="delete button for new tasks" src="images/delete-list-item.svg"><p class="side__p--task">${newTask}</p></li>`)
     taskInput.value = "";
-    }
     saveBtn.disabled = false;
+    }
 };
 
 function removeNewTask(e) {
-if(e.target.classList.contains('side__li--task')) {
+if(e.target.classList.contains('side__img--delete')) {
     e.target.closest("li").remove();
     reset(saveBtn);
     }
@@ -94,7 +94,7 @@ function generateCard(toDoList) {
   var listItems = generateToDoList(toDoList);
   mainContainer.insertAdjacentHTML('afterbegin', `<article class="${classSrc}" data-id="${toDoList.id}">
   <header>
-      <h2 class="${h2Src}">${toDoList.title}</h1>
+      <h2 class="${h2Src}" contenteditable="true">${toDoList.title}</h2>
   </header>
   <section class="main__article--body">
     <ul class="main__article--task-list">
@@ -116,9 +116,9 @@ function generateToDoList(toDoList) {
   var toDoText = "";
   var toDoItems = toDoList.tasks.map(function(tasks, index){
     if(tasks.complete === false) {
-      return `<li class="main__article--task" data-index=${index}>${tasks.task}</li>`
+      return `<li class="main__article--task" data-index=${index}><img class="main__img--checkbox" alt="empty checkbox to complete tasks" src="images/checkbox.svg"><p class="main__article--p" contenteditable="true">${tasks.task}</p></li>`
     } else if (tasks.complete === true) {
-      return `<li class="main__article--task-complete" data-index=${index}>${tasks.task}</li>`
+      return `<li class="main__article--task-complete" data-index=${index}><img class="main__img--checkbox-complete" alt="checkbox for completed tasks" src="images/checkbox-active.svg"><p class="main__article--p complete" contenteditable="true">${tasks.task}</li>`
     }
   })
   for(var i = 0; i<toDoItems.length; i++) {
@@ -187,32 +187,44 @@ function locateIndex(e) {
 };
 
 function locateTaskIndex(e) {
-  if(e.target.classList.contains('main__article--task') ||
-     e.target.classList.contains('main__article--task-complete')) {
-    var li = e.target
-    var index = parseInt(li.dataset.index);
-  }
+  if(e.target.classList.contains('main__img--checkbox') ||
+     e.target.classList.contains('main__img--checkbox-complete')) {
+      var li = e.target.closest('li')
+      var index = parseInt(li.dataset.index);
+     }
   return index;
 };
 
 function checkTask(e) {
-  if(e.target.classList.contains('main__article--task') ||
-     e.target.classList.contains('main__article--task-complete')) {
-    var taskLi = e.target;
+  if(e.target.classList.contains('main__img--checkbox') ||
+     e.target.classList.contains('main__img--checkbox-complete')) {
+    var taskText = e.target.nextSibling;
     var index = locateIndex(e);
     var taskIndex = locateTaskIndex(e);
     globalArray[index].updateTask(globalArray, taskIndex);
-    updateLiStyle(index, taskIndex, taskLi);
+    updateCheckbox(e);
+    updateTextStyle(index, taskIndex, taskText);
     value = checkDelete(index);
     enableDelete(value, e)
   }
 };
 
-function updateLiStyle(index, taskIndex, taskLi) {
+function updateCheckbox(e) {
+  var index = locateIndex(e);
+  var taskIndex = locateTaskIndex(e);
+  var checkbox = e.target;
   if (globalArray[index].tasks[taskIndex].complete === false) {
-    taskLi.setAttribute("class", "main__article--task");
+    checkbox.setAttribute("src", "images/checkbox.svg");
   } else if (globalArray[index].tasks[taskIndex].complete === true) {
-    taskLi.setAttribute("class", "main__article--task-complete");
+    checkbox.setAttribute("src", "images/checkbox-active.svg");
+  }
+};
+
+function updateTextStyle(index, taskIndex, taskText) {
+  if (globalArray[index].tasks[taskIndex].complete === false) {
+    taskText.setAttribute("class", "main__article--p ");
+  } else if (globalArray[index].tasks[taskIndex].complete === true) {
+    taskText.setAttribute("class", "main__article--p complete");
   }
 };
 
@@ -246,7 +258,7 @@ function deleteCard(e) {
     var id = locateId(e);
     if (tasksComplete === true) {
       e.target.closest("article").remove();
-      globalArray[index].deleteFromStorage(globalArray, id);
+      globalArray = globalArray[index].deleteFromStorage(globalArray, id);
     }
   }
 };
