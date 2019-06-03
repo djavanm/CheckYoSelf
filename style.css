@@ -108,6 +108,13 @@ li {
     border: 2px solid #1F1F3D;
 }
 
+.side__input--filter-urgent {
+    font-weight: 700;
+    color: #FFFFFF;
+    background-color: #EF4A23;
+    border: 2px solid #1F1F3D;
+}
+
 .side__input--task {
     width: 250px;
     display: inline-block;

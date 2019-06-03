@@ -7,7 +7,8 @@ var searchInput = document.querySelector("#nav__input--search");
 var mainContainer = document.querySelector(".main");
 var navContainer = document.querySelector(".side__nav");
 var headerContainer = document.querySelector(".header");
-var searchInput = document.querySelector(".header__input--search")
+var searchInput = document.querySelector(".header__input--search");
+var urgencyBtn = document.querySelector(".side__input--filter");
 //******************   Event listeners
 saveBtn.addEventListener("click", makeTaskList);
 addTaskBtn.addEventListener("click", appendNewTask);
@@ -19,6 +20,7 @@ mainContainer.addEventListener("click", checkTask);
 mainContainer.addEventListener("click", deleteCard);
 mainContainer.addEventListener("click", toggleUrgent);
 searchInput.addEventListener("keyup", searchToDoList);
+urgencyBtn.addEventListener("click", urgencyHandler);
 this.addEventListener("load", reinstantiateToDo);
 
 //*************************Global var
@@ -84,20 +86,22 @@ function resetForm() {
 };
 
 function generateCard(toDoList) {
+  var footerSrc = toDoList.urgent ? "main__article--footer-urgent" : "main__article--footer"
+  var h2Src = toDoList.urgent ? "main__article--title-urgent" : "main__article--title"
   var classSrc = toDoList.urgent ? "main__article--card-urgent" : "main__article--card";
   var urgentSrc = toDoList.urgent ? "images/urgent-active.svg" : "images/urgent.svg";
   var deleteSrc = deleteIcon(toDoList) ? "images/delete-active.svg" : "images/delete.svg";
   var listItems = generateToDoList(toDoList);
   mainContainer.insertAdjacentHTML('afterbegin', `<article class="${classSrc}" data-id="${toDoList.id}">
   <header>
-      <h2 class="main__article--title">${toDoList.title}</h1>
+      <h2 class="${h2Src}">${toDoList.title}</h1>
   </header>
   <section class="main__article--body">
     <ul class="main__article--task-list">
     ${listItems}
     </ul>
   </section> 
-    <footer class="main__article--footer">
+    <footer class="${footerSrc}">
       <label class="main__urgency-label" for="main__article--urgency-icon">
         <img class="main__article--urgency-icon" id="main__article--urgency-icon" src="${urgentSrc}" alt="lightning icon to denote urgency">
       URGENT</label>
@@ -295,4 +299,26 @@ function domSearchToDo() {
   var searchArray = globalArray.filter(function(toDoList) {
       return toDoArray.includes(toDoList.id); });
   return searchArray;
+};
+
+function urgencyHandler() {
+  if(urgencyBtn.classList.contains("side__input--filter")) {
+    urgencyBtn.value = "View All To Do's";
+    filterToUrgent();
+    urgencyBtn.setAttribute("class", "side__input side__input--filter-urgent")
+  } else if(urgencyBtn.classList.contains('side__input--filter-urgent')) {
+    urgencyBtn.value = "Filter By Urgency";
+    pageReload();
+    urgencyBtn.setAttribute("class", "side__input side__input--filter")
+  }
+};
+
+function filterToUrgent() {
+  mainContainer.innerHTML = "";
+  urgentArray = globalArray.filter(function(toDoList) {
+    return toDoList.urgent === true;
+  });
+  urgentArray.map(function(toDoList) {
+    generateCard(toDoList);
+  });
 };
