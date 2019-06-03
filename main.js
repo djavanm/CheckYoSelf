@@ -7,6 +7,7 @@ var searchInput = document.querySelector("#nav__input--search");
 var mainContainer = document.querySelector(".main");
 var navContainer = document.querySelector(".side__nav");
 var headerContainer = document.querySelector(".header");
+var searchInput = document.querySelector(".header__input--search")
 //******************   Event listeners
 saveBtn.addEventListener("click", makeTaskList);
 addTaskBtn.addEventListener("click", appendNewTask);
@@ -17,6 +18,7 @@ clearBtn.addEventListener("click", clearNavInputs);
 mainContainer.addEventListener("click", checkTask);
 mainContainer.addEventListener("click", deleteCard);
 mainContainer.addEventListener("click", toggleUrgent);
+searchInput.addEventListener("keyup", searchToDoList);
 this.addEventListener("load", reinstantiateToDo);
 
 //*************************Global var
@@ -133,6 +135,7 @@ function reinstantiateToDo() {
 };
 
 function pageReload() {
+  mainContainer.innerHTML = "";
   globalArray.map(ToDoList => {
     generateCard(ToDoList);
   });
@@ -173,8 +176,8 @@ function locateId(e) {
 function locateIndex(e) {
   var parent = e.target.closest("article");
   var parentId = parseInt(parent.dataset.id);
-  var locatedIndex = globalArray.findIndex(function(idea) {
-    return idea.id === parentId;
+  var locatedIndex = globalArray.findIndex(function(toDoList) {
+    return toDoList.id === parentId;
   });
   return locatedIndex;
 };
@@ -269,4 +272,27 @@ function updateUrgentCard(index, urgentIcon, card, cardTitle, cardFooter) {
     card.setAttribute("class", "main__article--card")
     urgentIcon.setAttribute("src", "images/urgent.svg");
   }
+};
+
+function searchToDoList() {
+  var search = searchInput.value.toLowerCase();
+  var searchArray = domSearchToDo();
+  mainContainer.innerHTML = "";
+  searchArray = searchArray.filter(function(toDoList) {
+    return (toDoList.title.toLowerCase().includes(search))});
+  searchArray.map(function(toDoList) {
+    generateCard(toDoList)});
+  if (searchInput.value === "") {
+    pageReload();
+  }
+};
+
+function domSearchToDo() {
+  var nodeArray = document.querySelectorAll("article");
+  var articleArray = Array.from(nodeArray);
+  var toDoArray = articleArray.map(function(article) {
+    return parseInt(article.dataset.id);});
+  var searchArray = globalArray.filter(function(toDoList) {
+      return toDoArray.includes(toDoList.id); });
+  return searchArray;
 };
