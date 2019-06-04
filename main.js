@@ -9,6 +9,7 @@ var navContainer = document.querySelector(".side__nav");
 var headerContainer = document.querySelector(".header");
 var searchInput = document.querySelector(".header__input--search");
 var urgencyBtn = document.querySelector(".side__input--filter");
+var selectInput = document.querySelector(".header__input--select");
 //******************   Event listeners
 saveBtn.addEventListener("click", makeTaskList);
 addTaskBtn.addEventListener("click", appendNewTask);
@@ -90,7 +91,7 @@ function resetForm() {
 
 function generateCard(toDoList) {
   var footerSrc = toDoList.urgent ? "main__article--footer-urgent" : "main__article--footer"
-  var h2Src = toDoList.urgent ? "main__article--title-urgent" : "main__article--title"
+  var h2Src = toDoList.urgent ? "main__article--title urgent" : "main__article--title"
   var classSrc = toDoList.urgent ? "main__article--card-urgent" : "main__article--card";
   var urgentSrc = toDoList.urgent ? "images/urgent-active.svg" : "images/urgent.svg";
   var deleteSrc = deleteIcon(toDoList) ? "images/delete-active.svg" : "images/delete.svg";
@@ -281,7 +282,7 @@ function toggleUrgent(e) {
 
 function updateUrgentCard(index, urgentIcon, card, cardTitle, cardFooter) {
   if (globalArray[index].urgent === true) {
-    cardTitle.setAttribute("class", "main__article--title-urgent")
+    cardTitle.setAttribute("class", "main__article--title urgent")
     cardFooter.setAttribute("class", "main__article--footer-urgent")
     card.setAttribute("class", "main__article--card-urgent")
     urgentIcon.setAttribute("src", "images/urgent-active.svg");
@@ -293,12 +294,22 @@ function updateUrgentCard(index, urgentIcon, card, cardTitle, cardFooter) {
   }
 };
 
+// function checkForSearch() {
+//   if(selectInput.value !== "All") {
+//     searchArray = globalArray.filter(function(toDoList) {
+//       return (toDoList.title.toLowerCase().includes(search) || toDoList.tasks.task.toLowerCase().includes(search)
+//       )});
+
+//       searchArray.map(function(toDoList) {
+//         generateCard(toDoList)});
+// };
+
 function searchToDoList() {
   var search = searchInput.value.toLowerCase();
   var searchArray = domSearchToDo();
   mainContainer.innerHTML = "";
   searchArray = searchArray.filter(function(toDoList) {
-    return (toDoList.title.toLowerCase().includes(search))});
+    return (toDoList.title.toLowerCase().includes(search) || toDoList.tasks.task.toLowerCase().includes(search))});
   searchArray.map(function(toDoList) {
     generateCard(toDoList)});
   if (searchInput.value === "") {
@@ -344,6 +355,7 @@ function setToDo(e) {
     var title = e.target.closest("article").querySelector(".main__article--title").textContent;
     globalArray[index].title = title;
     globalArray[index].saveToStorage(globalArray);
+    console.log(globalArray)
   }
 };
 
@@ -359,7 +371,7 @@ function setTask(e) {
     var index = locateIndex(e);
     var title = e.target.closest("article").querySelector(".main__article--title").textContent;
     globalArray[index].title = title;
-    var taskArray = e.target.closest("article").querySelectorAll('.main__article--p')
+    var taskArray = e.target.closest("article").querySelectorAll('.main__article--p');
     taskArray = Array.from(taskArray);
     taskArray = taskArray.map(function(task) {
       return task.innerText

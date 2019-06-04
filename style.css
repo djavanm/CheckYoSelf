@@ -35,6 +35,10 @@ p {
     color: #FFC30C;
 }
 
+.header__input--select {
+    background-color: #FFC30C;
+}
+
 .header__nav {
     height: 32px;
     display: flex;
@@ -269,11 +273,10 @@ margin: 5px;
   border-radius: 5px 0px 0px 5px;
 }
 
-.main__article--title-urgent {
-    margin: 0px;
-    padding: 10px;
+.urgent {
     border-bottom: 2px solid #FCC30C;
 }
+
 .main__article--footer-urgent {
   display: flex;
   justify-content: space-between;
