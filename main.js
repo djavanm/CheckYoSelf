@@ -9,7 +9,6 @@ var navContainer = document.querySelector(".side__nav");
 var headerContainer = document.querySelector(".header");
 var searchInput = document.querySelector(".header__input--search");
 var urgencyBtn = document.querySelector(".side__input--filter");
-var selectInput = document.querySelector(".header__input--select");
 //******************   Event listeners
 saveBtn.addEventListener("click", makeTaskList);
 addTaskBtn.addEventListener("click", appendNewTask);
@@ -294,22 +293,13 @@ function updateUrgentCard(index, urgentIcon, card, cardTitle, cardFooter) {
   }
 };
 
-// function checkForSearch() {
-//   if(selectInput.value !== "All") {
-//     searchArray = globalArray.filter(function(toDoList) {
-//       return (toDoList.title.toLowerCase().includes(search) || toDoList.tasks.task.toLowerCase().includes(search)
-//       )});
-
-//       searchArray.map(function(toDoList) {
-//         generateCard(toDoList)});
-// };
-
 function searchToDoList() {
   var search = searchInput.value.toLowerCase();
   var searchArray = domSearchToDo();
   mainContainer.innerHTML = "";
   searchArray = searchArray.filter(function(toDoList) {
-    return (toDoList.title.toLowerCase().includes(search) || toDoList.tasks.task.toLowerCase().includes(search))});
+    return (toDoList.title.toLowerCase().includes(search))
+  });
   searchArray.map(function(toDoList) {
     generateCard(toDoList)});
   if (searchInput.value === "") {
