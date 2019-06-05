@@ -15,10 +15,8 @@ addTaskBtn.addEventListener("click", appendNewTask);
 navContainer.addEventListener("click", removeNewTask);
 titleInput.addEventListener("keyup", buttonHandler);
 taskInput.addEventListener("keyup", buttonHandler);
-clearBtn.addEventListener("click", clearNavInputs); 
-mainContainer.addEventListener("click", checkTask);
-mainContainer.addEventListener("click", deleteCard);
-mainContainer.addEventListener("click", toggleUrgent);
+clearBtn.addEventListener("click", clearNavInputs);
+mainContainer.addEventListener("click", mainContainerClick); 
 searchInput.addEventListener("keyup", searchToDoList);
 urgencyBtn.addEventListener("click", urgencyHandler);
 mainContainer.addEventListener("focusout", setToDo);
@@ -26,10 +24,22 @@ mainContainer.addEventListener("focusout", setTask);
 mainContainer.addEventListener("keydown", returnHandler)
 this.addEventListener("load", reinstantiateToDo);
 
-//*************************Global var
+//*************************Global Array
 var globalArray = JSON.parse(localStorage.getItem("ToDoArray")) || [];
 
+//*************************Main Functions
 
+function mainContainerClick(e) {
+if(e.target.classList.contains('main__img--checkbox') || e.target.classList.contains('main__img--checkbox-complete')) {
+  checkTask(e)
+  }
+if(e.target.classList.contains('main__article--delete-icon')) {
+  deleteCard(e);
+  }
+if(e.target.classList.contains('main__article--urgency-icon')) {
+  toggleUrgent(e);
+  }
+};
 
 function appendNewTask(e) {
     if(e.target === addTaskBtn && titleInput.value !== "" && taskInput.value !== "") {
@@ -362,7 +372,7 @@ function appendUrgentWelcome() {
       DELETE</label>
     </footer> 
 </article>`)
-}
+};
 
 function setToDo(e) {
   if (e.target.classList.contains("main__article--title")) {

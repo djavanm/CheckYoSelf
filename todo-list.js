@@ -31,4 +31,4 @@ class ToDoList {
     this.tasks = this.tasks;
     this.saveToStorage(globalArray);
   }
-}
+};
