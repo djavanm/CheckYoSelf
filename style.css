@@ -381,9 +381,13 @@ margin: 5px;
       align-items: center;
       flex-direction: column;
       justify-content: flex-start;
-      height: 25vh;
+      height: 15vh;
     }
     .header__nav {
       margin: 0 auto;
+    }
+    .article {
+      margin: 20px auto;
+      max-width: 50%;
     }
   }

@@ -203,7 +203,6 @@ function checkTask(e) {
     var taskText = e.target.nextSibling;
     var index = locateIndex(e);
     var taskIndex = locateTaskIndex(e);
-    console.log(globalArray[index].tasks[taskIndex].complete)
     globalArray[index].tasks[taskIndex].complete = !globalArray[index].tasks[taskIndex].complete;
     globalArray[index].updateTask(globalArray);
     updateCheckbox(e);
@@ -371,7 +370,6 @@ function setToDo(e) {
     var title = e.target.closest("article").querySelector(".main__article--title").textContent;
     globalArray[index].title = title;
     globalArray[index].saveToStorage(globalArray);
-    console.log(globalArray)
   }
 };
 
