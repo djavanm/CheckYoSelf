@@ -364,8 +364,7 @@ function setTask(e) {
     var taskArray = e.target.closest("article").querySelectorAll('.main__article--p');
     taskArray = Array.from(taskArray);
     taskArray = taskArray.map(function(task) {
-      return task.innerText
-    });
+      return task.innerText});
   }
   insertNewTasks(index, taskArray)
 };

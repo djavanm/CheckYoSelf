@@ -18,6 +18,7 @@ class ToDoList {
     globalArray = newGlobalArray;
     var stringified = JSON.stringify(globalArray);
     localStorage.setItem("ToDoArray", stringified);
+    return globalArray;
   }
 
   updateToDo(globalArray, object) {
