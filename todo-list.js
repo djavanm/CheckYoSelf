@@ -21,12 +21,14 @@ class ToDoList {
     return globalArray;
   }
 
-  updateToDo(globalArray, object) {
-  
+  updateToDo(globalArray) {
+  this.urgent = this.urgent;
+  this.title = this.title;
+  this.saveToStorage(globalArray);
   }
 
-  updateTask(globalArray, taskIndex) {
-    this.tasks[taskIndex].complete = !this.tasks[taskIndex].complete;
+  updateTask(globalArray) {
+    this.tasks = this.tasks;
     this.saveToStorage(globalArray);
   }
 }

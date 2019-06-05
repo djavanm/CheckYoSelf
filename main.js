@@ -15,7 +15,7 @@ addTaskBtn.addEventListener("click", appendNewTask);
 navContainer.addEventListener("click", removeNewTask);
 titleInput.addEventListener("keyup", buttonHandler);
 taskInput.addEventListener("keyup", buttonHandler);
-clearBtn.addEventListener("click", clearNavInputs);
+clearBtn.addEventListener("click", clearNavInputs); 
 mainContainer.addEventListener("click", checkTask);
 mainContainer.addEventListener("click", deleteCard);
 mainContainer.addEventListener("click", toggleUrgent);
@@ -199,12 +199,13 @@ function locateTaskIndex(e) {
 };
 
 function checkTask(e) {
-  if(e.target.classList.contains('main__img--checkbox') ||
-     e.target.classList.contains('main__img--checkbox-complete')) {
+  if(e.target.classList.contains('main__img--checkbox') || e.target.classList.contains('main__img--checkbox-complete')) {
     var taskText = e.target.nextSibling;
     var index = locateIndex(e);
     var taskIndex = locateTaskIndex(e);
-    globalArray[index].updateTask(globalArray, taskIndex);
+    console.log(globalArray[index].tasks[taskIndex].complete)
+    globalArray[index].tasks[taskIndex].complete = !globalArray[index].tasks[taskIndex].complete;
+    globalArray[index].updateTask(globalArray);
     updateCheckbox(e);
     updateTextStyle(index, taskIndex, taskText);
     value = checkDelete(index);
@@ -274,7 +275,7 @@ function toggleUrgent(e) {
      var cardTitle = e.target.closest('article').querySelector('h2');
      var cardFooter = e.target.closest('footer');
      globalArray[index].urgent = !globalArray[index].urgent;
-     globalArray[index].saveToStorage(globalArray);
+     globalArray[index].updateToDo(globalArray);
      updateUrgentCard(index, urgentIcon, card, cardTitle, cardFooter);
   }
 };
@@ -334,10 +335,35 @@ function filterToUrgent() {
   urgentArray = globalArray.filter(function(toDoList) {
     return toDoList.urgent === true;
   });
-  urgentArray.map(function(toDoList) {
-    generateCard(toDoList);
-  });
+  if(urgentArray.length === 0) {
+    appendUrgentWelcome()
+  } else {
+    urgentArray.map(function(toDoList) {
+      generateCard(toDoList);});
+  }
 };
+
+function appendUrgentWelcome() {
+  mainContainer.insertAdjacentHTML('afterbegin', `<article class="main__article--card-urgent main__article--welcome" data-id="">
+  <header>
+      <h2 class="main__article--title urgent">Welcome to Check Yo' Self!</h1>
+  </header>
+  <section class="main__article--body">
+    <ul class="main__article--task-list">
+      <li class="main__article--task"><img class="main__img--checkbox-welcome" alt="empty checkbox to complete tasks" src="images/checkbox.svg"><p class="main__article--p">Welcome to Check Yo' Self!</p></li>
+      <li class="main__article--task"><img class="main__img--checkbox-welcome" alt="empty checkbox to complete tasks" src="images/checkbox.svg"><p class="main__article--p">Click the urgent button to see cards here!</p></li>
+    </ul>
+  </section> 
+    <footer class="main__article--footer-urgent">
+      <label class="main__urgency-label" for="main__article--urgency-icon">
+        <img class="main__article--urgency-icon-welcome" id="main__article--urgency-icon" src="images/urgent-active.svg" alt="lightning icon to denote urgency">
+      URGENT</label>
+      <label class="main__delete-label" for="main__article--delete-icon">
+        <img class="main__article--delete-icon-welcome" id="main__article--delete-icon"src="images/delete.svg" alt="delete button">
+      DELETE</label>
+    </footer> 
+</article>`)
+}
 
 function setToDo(e) {
   if (e.target.classList.contains("main__article--title")) {
@@ -376,6 +402,6 @@ function insertNewTasks(index, taskArray) {
         globalArray[index].tasks[i].task = taskArray[i];
       }
     }
-    globalArray[index].saveToStorage(globalArray);
+    globalArray[index].updateTask(globalArray);
   }
 };
